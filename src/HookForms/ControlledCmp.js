@@ -8,11 +8,11 @@ const App = () => {
   } = useForm({
     mode: 'onBlur',
     // mode: 'onValidate',
-    defaultValues: {
-      name: 'Anna Horne',
-      phoneNumber: '07222222999',
-      email: 'anna@natwest.com',
-    },
+    // defaultValues: {
+    //   name: 'Faouzi',
+    //   phoneNumber: '07522522432',
+    //   email: 'faouzi@natwest.com',
+    // },
   });
 
   const onSubmit = (data) => console.log(data);
@@ -23,7 +23,7 @@ const App = () => {
       style={{ height: '100vh' }}>
       <div
         className="w-1/2 shadow-lg rounded-md bg-white p-8 flex flex-col"
-        style={{ height: '400px' }}>
+        style={{ height: '375px' }}>
         <h2 className="text-center font-medium text-2xl mb-4">
           React Hook Form
         </h2>
@@ -32,7 +32,6 @@ const App = () => {
           onSubmit={handleSubmit(onSubmit)}
           className="flex flex-1 flex-col justify-evenly">
           {/* NAME FIELD */}
-          <label>Name</label>
           <input
             className="border-2 outline-none p-2 rounded-md"
             {...register('name', {
@@ -43,7 +42,6 @@ const App = () => {
           {/* NAME FIELD */}
 
           {/* PHONE NUMBER FIELD */}
-          <label>Phone Number</label>
           <input
             className="border-2 outline-none p-2 rounded-md"
             {...register('phoneNumber', {
@@ -60,7 +58,6 @@ const App = () => {
           {/* PHONE NUMBER FIELD */}
 
           {/* EMAIL FIELD */}
-          <label>Email</label>
           <input
             className="border-2 outline-none p-2 rounded-md"
             {...register('email', {
@@ -79,8 +76,7 @@ const App = () => {
           <button
             className="flex justify-center p-2 rounded-md w-1/2 self-center bg-gray-900  text-white hover:bg-gray-800"
             type="submit"
-            // disabled={!isValid}
-            >
+            disabled={!isValid}>
             <span>Submit</span>
           </button>
           {/* SUBMIT BUTTON */}
