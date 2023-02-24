@@ -4,7 +4,7 @@ import ControlledCmp from './HookForms/ControlledCmp';
 const App = () => {
   return (
     <div>
-      <UncontrolledCmp />
+      <ControlledCmp />
     </div>
   );
 };

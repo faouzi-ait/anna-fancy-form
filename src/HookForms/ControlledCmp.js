@@ -28,7 +28,7 @@ const App = () => {
           <Controller
             name="name"
             control={control}
-            rules={{ required: true }}
+            rules={{ required: 'Your name is required' }}
             render={({ field: { ref, ...field } }) => (
               <Input
                 {...field}
@@ -39,7 +39,7 @@ const App = () => {
                 labelClassName="label-style"
                 className={util.inputStyle}
                 style={util.setErrorStyle(errors?.name)}
-                errorMessage={errors?.name ? 'Your name is required' : ''}
+                errorMessage={errors?.name?.message}
                 placeholder="Your Firstname"
               />
             )}
@@ -48,7 +48,7 @@ const App = () => {
           <Controller
             name="surname"
             control={control}
-            rules={{ required: true }}
+            rules={{ required: 'Your surname is required' }}
             render={({ field: { ref, ...field } }) => (
               <Input
                 {...field}
@@ -59,7 +59,7 @@ const App = () => {
                 labelClassName="label-style"
                 className={util.inputStyle}
                 style={util.setErrorStyle(errors?.surname)}
-                errorMessage={errors?.surname ? 'Your surname is required' : ''}
+                errorMessage={errors?.surname?.message}
                 placeholder="Your Lastname"
               />
             )}
@@ -80,7 +80,7 @@ const App = () => {
                 className={util.inputStyle}
                 style={util.setErrorStyle(errors?.email)}
                 placeholder="your-email@somewhere.com"
-                errorMessage={errors?.email ? errors?.email.message : ''}
+                errorMessage={errors?.email?.message}
               />
             )}
           />
@@ -109,8 +109,8 @@ const App = () => {
                 labelClassName="label-style"
                 className={util.inputStyle}
                 style={util.setErrorStyle(errors?.password)}
-                errorMessage={errors?.password?.message}
                 placeholder="Please enter your password"
+                errorMessage={errors?.password?.message}
               />
             )}
           />
