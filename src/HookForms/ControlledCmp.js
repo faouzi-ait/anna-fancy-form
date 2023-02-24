@@ -1,18 +1,17 @@
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
+import Input from '../ui/Input';
+
+import * as util from '../utils';
 
 const App = () => {
   const {
-    register,
     handleSubmit,
+    control,
     formState: { errors, isValid },
   } = useForm({
     mode: 'onBlur',
     // mode: 'onValidate',
-    // defaultValues: {
-    //   name: 'Faouzi',
-    //   phoneNumber: '07522522432',
-    //   email: 'faouzi@natwest.com',
-    // },
+    defaultValues: util.defaultValues,
   });
 
   const onSubmit = (data) => console.log(data);
@@ -21,65 +20,106 @@ const App = () => {
     <div
       className="w-full flex justify-center items-center bg-gray-900 p-8 border-r border-dashed"
       style={{ height: '100vh' }}>
-      <div
-        className="w-1/2 shadow-lg rounded-md bg-white p-8 flex flex-col"
-        style={{ height: '375px' }}>
+      <div className="w-1/2 shadow-lg rounded-md bg-white p-8 flex flex-col form-container">
         <h2 className="text-center font-medium text-2xl mb-4">
           React Hook Form
         </h2>
-
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-1 flex-col justify-evenly">
-          {/* NAME FIELD */}
-          <input
-            className="border-2 outline-none p-2 rounded-md"
-            {...register('name', {
-              required: 'The name cannot be empty',
-            })}
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Controller
+            name="name"
+            control={control}
+            rules={{ required: true }}
+            render={({ field: { ref, ...field } }) => (
+              <Input
+                {...field}
+                label="Name"
+                type="text"
+                name="name"
+                aria-invalid={!!errors?.name}
+                labelClassName="label-style"
+                className={util.inputStyle}
+                style={util.setErrorStyle(errors?.name)}
+                errorMessage={errors?.name ? 'Your name is required' : ''}
+                placeholder="Your Firstname"
+              />
+            )}
           />
-          <span className="text-sm text-red-700">{errors?.name?.message}</span>
-          {/* NAME FIELD */}
 
-          {/* PHONE NUMBER FIELD */}
-          <input
-            className="border-2 outline-none p-2 rounded-md"
-            {...register('phoneNumber', {
-              required: 'This phone number cannot be empty',
-              pattern: {
-                value: /^[0-9]+$/,
-                message: 'Please enter a number',
+          <Controller
+            name="surname"
+            control={control}
+            rules={{ required: true }}
+            render={({ field: { ref, ...field } }) => (
+              <Input
+                {...field}
+                label="Surname"
+                type="text"
+                name="surname"
+                aria-invalid={!!errors?.surname}
+                labelClassName="label-style"
+                className={util.inputStyle}
+                style={util.setErrorStyle(errors?.surname)}
+                errorMessage={errors?.surname ? 'Your surname is required' : ''}
+                placeholder="Your Lastname"
+              />
+            )}
+          />
+
+          <Controller
+            name="email"
+            control={control}
+            rules={util.emailFormPattern}
+            render={({ field: { ref, ...field } }) => (
+              <Input
+                {...field}
+                label="Email"
+                type="email"
+                name="email"
+                aria-invalid={!!errors?.email}
+                labelClassName="label-style"
+                className={util.inputStyle}
+                style={util.setErrorStyle(errors?.email)}
+                placeholder="your-email@somewhere.com"
+                errorMessage={errors?.email ? errors?.email.message : ''}
+              />
+            )}
+          />
+
+          <Controller
+            name="password"
+            control={control}
+            rules={{
+              required: 'You must specify a password',
+              minLength: {
+                value: 5,
+                message: 'Passwords must have at least 6 characters',
               },
-            })}
-          />
-          <span className="text-sm text-red-700">
-            {errors?.phoneNumber?.message}
-          </span>
-          {/* PHONE NUMBER FIELD */}
-
-          {/* EMAIL FIELD */}
-          <input
-            className="border-2 outline-none p-2 rounded-md"
-            {...register('email', {
-              required: 'Your email is required',
-              pattern: {
-                value:
-                  /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
-                message: 'Please check your email',
+              maxLength: {
+                value: 10,
+                message: 'Passwords must have 10 characters at most',
               },
-            })}
+            }}
+            render={({ field: { ref, ...field } }) => (
+              <Input
+                {...field}
+                type="password"
+                name="password"
+                label="Password"
+                aria-invalid={!!errors.password}
+                labelClassName="label-style"
+                className={util.inputStyle}
+                style={util.setErrorStyle(errors?.password)}
+                errorMessage={errors?.password?.message}
+                placeholder="Please enter your password"
+              />
+            )}
           />
-          <span className="text-sm text-red-700">{errors?.email?.message}</span>
-          {/* EMAIL FIELD */}
 
-          {/* SUBMIT BUTTON */}
           <button
-            className="flex justify-center p-2 rounded-md w-1/2 self-center bg-gray-900  text-white hover:bg-gray-800"
-            type="submit"
-            disabled={!isValid}>
+            className="flex justify-center p-2 rounded-md w-full self-center bg-gray-900  text-white hover:bg-gray-800 margin"
+            type="submit">
             <span>Submit</span>
           </button>
-          {/* SUBMIT BUTTON */}
         </form>
       </div>
     </div>

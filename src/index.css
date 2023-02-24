@@ -1,3 +1,47 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 700px;
+}
+
+.inputField {
+    padding: 1rem;
+    font-size: 1.35rem;
+    margin-bottom: 1rem;
+}
+
+.width {
+  width: 30vw;
+}
+
+.margin {
+  margin-top: 1rem;
+}
+
+.inputField:focus {
+    outline: none;
+    border: 2px solid rgb(255, 195, 67);
+}
+
+.label {
+    margin-bottom: .8rem;
+    font-size: 1.4rem;
+    font-weight: bold;
+    letter-spacing: .4px
+}
+
+.form-field-error { 
+  color: red;
+  margin: 0rem 0 .5rem 0;
+  font-weight: bold;
+}
+
+.label-style {
+  display: block;
+  margin-top: 0rem;
+}

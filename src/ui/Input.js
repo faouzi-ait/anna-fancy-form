@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 function Input({
   type,
+  name,
+  id,
   onChange,
   label,
   value,
@@ -10,7 +12,6 @@ function Input({
   labelClassName,
   labelStyle,
   style,
-  containerClass,
   placeholder,
   disabled,
   checked,
@@ -19,12 +20,14 @@ function Input({
   ...rest
 }) {
   return (
-    <div className={containerClass}>
+    <>
       <label className={labelClassName} style={labelStyle}>
         {label}
       </label>
       <input
         type={type}
+        name={name}
+        id={id}
         onChange={onChange}
         value={value}
         className={classname}
@@ -39,18 +42,19 @@ function Input({
           {errorMessage}
         </div>
       )}
-    </div>
+    </>
   );
 }
 
 Input.propTypes = {
   label: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   type: PropTypes.string,
+  name: PropTypes.string,
+  id: PropTypes.string,
   value: PropTypes.string,
   disabled: PropTypes.bool,
   classname: PropTypes.object,
   style: PropTypes.object,
-  containerClass: PropTypes.object,
   onChange: PropTypes.func,
   placeholder: PropTypes.string,
 };
@@ -58,11 +62,12 @@ Input.propTypes = {
 Input.defaultProps = {
   label: '',
   type: 'text',
+  name: '',
+  id: '',
   value: undefined || '',
   disabled: false,
   classname: {},
   style: {},
-  containerClass: {},
   onChange: () => {},
   placeholder: '',
   rest: {},
